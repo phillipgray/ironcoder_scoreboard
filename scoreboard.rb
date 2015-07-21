@@ -5,6 +5,8 @@ require 'yaml/store'
 # to start the server:
 # "ruby basics.rb -p $PORT -o $IP"
 
+
+
 get '/' do
     @title = "Home"
     @section_title = "Current Challenges"
@@ -18,5 +20,12 @@ get '/new' do
 end
 
 post '/new' do
+    @title = "Added"
+    @section_title = "New code battle successfully added!"
+    @store = YAML::Store.new 'battles.yml'
+    @store.transaction do
+        @newest_battle = @store[:newest_battle_id]
+        @newest_battle += 1
+        @store['battle_#{@newest_battle}'] ||= {}
     
 end
