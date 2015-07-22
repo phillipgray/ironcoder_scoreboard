@@ -22,10 +22,13 @@ end
 post '/new' do
     @title = "Added"
     @section_title = "New code battle successfully added!"
+    @usname_1 = params["github_handle_1"]
+    @usname_2 = params["github_handle_2"]
     @store = YAML::Store.new 'battles.yml'
     @store.transaction do
-        @newest_battle = @store[:newest_battle_id]
-        @newest_battle += 1
-        @store['battle_#{@newest_battle}'] ||= {}
-    
+        @store['battle_2'] ||= {}
+        @store['battle_2'][:battle_id] = 2
+        @store['battle_2'][:github_handle_1] = @usname_1
+        @store['battle_2'][:github_handle_2] = @usname_2
+    end
 end

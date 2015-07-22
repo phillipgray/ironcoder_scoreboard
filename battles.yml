@@ -1,6 +1,10 @@
-newest_battle_id:
-    1
+---
+newest_battle_id: 1
 battle_1:
-    battle_id: 1
-    github_handle_1: phillipgray
-    github_handle_2: kjaymiller
+  battle_id: 1
+  github_handle_1: phillipgray
+  github_handle_2: kjaymiller
+battle_2:
+  :battle_id: 2
+  :github_handle_1: hello
+  :github_handle_2: world
