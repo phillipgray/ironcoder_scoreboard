@@ -25,10 +25,15 @@ post '/new' do
     @usname_1 = params["github_handle_1"]
     @usname_2 = params["github_handle_2"]
     @store = YAML::Store.new 'battles.yml'
+    last_battle_id = @store.transaction { @store[:newest_battle_id] }
+    next_battle_id = last_battle_id + 1
+    battle_name = "battle_#{next_battle_id}".to_sym
     @store.transaction do
-        @store['battle_2'] ||= {}
-        @store['battle_2'][:battle_id] = 2
-        @store['battle_2'][:github_handle_1] = @usname_1
-        @store['battle_2'][:github_handle_2] = @usname_2
+        @store[battle_name] ||= {}
+        @store[battle_name][:battle_id] = next_battle_id
+        @store[battle_name][:github_handle_1] = @usname_1
+        @store[battle_name][:github_handle_2] = @usname_2
+        @store[:newest_battle_id] = next_battle_id
     end
+    erb :new
 end
