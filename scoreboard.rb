@@ -10,6 +10,8 @@ require 'yaml/store'
 get '/' do
     @title = "Home"
     @section_title = "Current Challenges"
+    @store = YAML::Store.new 'battles.yml'
+    
     erb :home
 end
 
@@ -29,11 +31,13 @@ post '/new' do
     next_battle_id = last_battle_id + 1
     battle_name = "battle_#{next_battle_id}".to_sym
     @store.transaction do
-        @store[battle_name] ||= {}
-        @store[battle_name][:battle_id] = next_battle_id
-        @store[battle_name][:github_handle_1] = @usname_1
-        @store[battle_name][:github_handle_2] = @usname_2
+        @store['battles'] ||= []
+        @store['battles'][last_battle_id] = { 
+            :battle_id => next_battle_id,
+            :github_handle_1 => @usname_1,
+            :github_handle_2 => @usname_2,
+        }
         @store[:newest_battle_id] = next_battle_id
     end
-    erb :new
+    erb :home
 end
