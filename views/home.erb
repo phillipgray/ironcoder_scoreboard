@@ -1,0 +1,17 @@
+<section>
+    <table>
+        <tr>
+            <th>Battle</th>
+            <th>Coder 1</th>
+            <th>Coder 2</th>
+        </tr>
+        
+    <% @battle_list.each do |set| %>
+        <tr>
+            <td><%= set[:battle_id] %></td>
+            <td><%= set[:github_handle_1] %></td>
+            <td><%= set[:github_handle_2] %></td>
+        </tr>
+    <% end %>
+    </table>
+</section>
